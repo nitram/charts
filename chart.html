@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Chart JS</title>
+        <style media="screen">
+            @font-face {
+                font-family: 'Helvetica Neue';
+                src: url('fonts/HelveticaNeue.ttc');
+            }
+        </style>
+    </head>
+    <body style="display: flex; align-items: center; flex-direction: column">
+        <h1 style="font-family: 'Helvetica Neue';">Line Chart</h1>
+        <div class="chart" style="width: 1000px; height: 500px; margin-top: 20px">
+            <canvas id="myFirstChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Bar Chart</h1>
+        <div class="chart" style="width: 1000px; height: 500px; margin-top: 20px">
+            <canvas id="mySecondChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Bar Chart with Multiple Labels</h1>
+        <div class="chart" style="width: 1000px; height: 500px; margin-top: 20px">
+            <canvas id="myThirdChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Radar Chart</h1>
+        <div class="chart" style="width: 700px; height: 700px; margin-top: 20px">
+            <canvas id="myFourthChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Donut Chart</h1>
+        <div class="chart" style="width: 600px; height: 600px; margin-top: 20px">
+            <canvas id="myFifthChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Pie Chart</h1>
+        <div class="chart" style="width: 600px; height: 600px; margin-top: 20px">
+            <canvas id="mySixthChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Polar Area Chart</h1>
+        <div class="chart" style="width: 600px; height: 600px; margin-top: 20px">
+            <canvas id="mySeventhChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Bubble Chart</h1>
+        <div class="chart" style="width: 1000px; height: 500px; margin-top: 20px">
+            <canvas id="myEighthChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Mixed Chart</h1>
+        <div class="chart" style="width: 1000px; height: 500px; margin-top: 20px;">
+            <canvas id="myNinthChart"></canvas>
+        </div>
+
+        <h1 style="font-family: 'Helvetica Neue'; margin-top: 150px">Pattern Chart for Color Blindness</h1>
+        <div class="chart" style="width: 600px; height: 600px; margin-top: 20px; margin-bottom: 150px;">
+            <canvas id="myTenthChart"></canvas>
+        </div>
+
+        <hr width="85%">
+        <div style="font-family: 'Helvetica Neue'; text-align: center; margin: 20px 0;">Credited to <strong>Martin</strong></div>
+    </body>
+    <script src="js/chart/dist/chart.js"></script>
+    <script src="js/patternomaly/dist/patternomaly.js"></script>
+    <script type="text/javascript">
+        // 1st example - line chart
+        const labels = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+        ];
+        const data = {
+          labels: labels,
+          datasets: [{
+            label: 'My First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45],
+          }]
+        };
+
+        const config = {
+            type: 'line',
+            data,
+            options: {}
+        }
+
+        var myChart = new Chart(
+            document.getElementById('myFirstChart'),
+            config
+        );
+
+        // 2nd example - bar chart
+        var ctx = document.getElementById('mySecondChart');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // 3rd example - bar chart with multiple labels
+        const data3 = [{x: 'Jan', net: 100, cogs: 50, gm: 50}, {x: 'Feb', net: 120, cogs: 55, gm: 75}];
+        const cfg = {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb'],
+                datasets: [{
+                    label: 'Net sales',
+                    data: data3,
+                    backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                    hoverBackgroundColor: 'rgba(255, 99, 132, 0.8)',
+                    parsing: {
+                        yAxisKey: 'net'
+                    }
+                }, {
+                    label: 'Cost of goods sold',
+                    data: data3,
+                    backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                    hoverBackgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    parsing: {
+                        yAxisKey: 'cogs'
+                    }
+                }, {
+                    label: 'Gross margin',
+                    data: data3,
+                    backgroundColor: 'rgba(255, 206, 86, 0.6)',
+                    hoverBackgroundColor: 'rgba(255, 206, 86, 0.8)',
+                    parsing: {
+                        yAxisKey: 'gm'
+                    }
+                }]
+            },
+          options: {
+              animation: false
+            }
+        };
+
+        var myChart3 = new Chart(document.getElementById('myThirdChart'), cfg);
+
+        // 4th example - radar chart
+        const data4 = {
+          labels: [
+            'Eating',
+            'Drinking',
+            'Sleeping',
+            'Designing',
+            'Coding',
+            'Cycling',
+            'Running'
+          ],
+          datasets: [{
+            label: 'First Dataset',
+            data: [65, 59, 90, 81, 56, 55, 40],
+            fill: true,
+            backgroundColor: 'rgba(255, 99, 132, 0.2)',
+            borderColor: 'rgb(255, 99, 132)',
+            pointBackgroundColor: 'rgb(255, 99, 132)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(255, 99, 132)'
+          }, {
+            label: 'Second Dataset',
+            data: [28, 48, 40, 19, 96, 27, 100],
+            fill: true,
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgb(54, 162, 235)',
+            pointBackgroundColor: 'rgb(54, 162, 235)',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: 'rgb(54, 162, 235)'
+          }]
+        };
+
+        const config4 = {
+          type: 'radar',
+          data: data4,
+          options: {
+            elements: {
+              line: {
+                borderWidth: 3
+              }
+            },
+            scales: {
+                r: {
+                    beginAtZero: true
+                }
+            }
+          },
+        };
+
+        var myChart4 = new Chart(document.getElementById('myFourthChart'), config4);
+
+        // #5th example - doughnut chart (accepts only 1 dataset)
+        const data5 = {
+          labels: [
+            'Red',
+            'Blue',
+            'Yellow'
+          ],
+          datasets: [{
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        };
+
+        const config5 = {
+          type: 'doughnut',
+          data: data5,
+        };
+
+        var myChart5 = new Chart(document.getElementById('myFifthChart'), config5);
+
+        // 6th example - pie Chart
+        const data6 = {
+          labels: [
+            'Red',
+            'Blue',
+            'Yellow'
+          ],
+          datasets: [{
+            label: 'My First Dataset',
+            data: [300, 50, 100],
+            backgroundColor: [
+              'rgb(255, 99, 132)',
+              'rgb(54, 162, 235)',
+              'rgb(255, 205, 86)'
+            ],
+            hoverOffset: 4
+          }]
+        };
+
+        const config6 = {
+          type: 'pie',
+          data: data6,
+        };
+
+        var myChart6 = new Chart(document.getElementById('mySixthChart'), config6);
+
+        // 7th example - polar area chart
+        const data7 = {
+          labels: [
+            'Red',
+            'Green',
+            'Yellow',
+            'Blue',
+            'Grey'
+          ],
+          datasets: [{
+            label: 'My First Dataset',
+            data: [110, 160, 70, 140, 30],
+            backgroundColor: [
+              'rgb(255, 99, 132, 0.5)',
+              'rgb(75, 192, 192, 0.5)',
+              'rgb(255, 205, 86, 0.5)',
+              'rgb(54, 162, 235, 0.5)',
+              'rgb(201, 203, 207, 0.5)'
+            ]
+          }]
+        };
+
+        const config7 = {
+          type: 'polarArea',
+          data: data7,
+          options: {
+              scales: {
+                  r: {
+                      beginAtZero: true
+                  }
+              }
+          }
+        };
+
+        var myChart7 = new Chart(document.getElementById('mySeventhChart'), config7);
+
+        // 8th example - bubble chart
+        const data8 = {
+          datasets: [{
+            label: 'First Dataset',
+            data: [{
+              x: 15,
+              y: 30,
+              r: 15
+            }, {
+              x: 40,
+              y: 10,
+              r: 10
+            }, {
+              x: 5,
+              y: 15,
+              r: 20
+            }, {
+              x: 30,
+              y: 20,
+              r: 50
+            }],
+            backgroundColor: 'rgb(255, 99, 132)'
+          }]
+        };
+
+        const config8 = {
+          type: 'bubble',
+          data: data8,
+          options: {
+              scales: {
+                  x: {
+                      beginAtZero: true
+                  }
+              }
+          }
+        };
+
+        var myChart8 = new Chart(document.getElementById('myEighthChart'), config8);
+
+        // 9th example - mixed chart
+        const labels9 = [
+          'January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+        ];
+        const data9 = {
+          labels: labels9,
+          datasets: [{
+            type: 'line',
+            label: 'First dataset',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45],
+          }, {
+            type: 'bar',
+            label: 'Second dataset',
+            backgroundColor: 'rgba(54, 162, 235, 0.2)',
+            borderColor: 'rgba(54, 162, 235)',
+            data: [10, 5, 15, 20, 15, 30, 35],
+          }]
+        };
+
+        const config9 = {
+          type: 'scatter',
+          data: data9,
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        };
+
+        var myChart9 = new Chart(document.getElementById('myNinthChart'), config9);
+
+        // 10th example - pattern chart for color blindness
+        const data10 = {
+            labels: ['Red', 'Blue', 'Purple', 'Yellow'],
+            datasets: [{
+                data: [45, 25, 20, 10],
+                backgroundColor: [
+                    pattern.draw('square', '#ff6384'),
+                    pattern.draw('diagonal', '#36a2eb'),
+                    pattern.draw('cross', '#cc65fe'),
+                    pattern.draw('zigzag', '#ffce56')
+                ]
+            }]
+        };
+
+        const config10 = {
+            type: 'doughnut',
+            data: data10,
+            options: {}
+        };
+
+        var myChart10 = new Chart(document.getElementById('myTenthChart'), config10);
+    </script>
+</html>
